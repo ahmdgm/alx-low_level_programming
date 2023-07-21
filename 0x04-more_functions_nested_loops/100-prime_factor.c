@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 
 /**
@@ -7,29 +6,34 @@
  * followed by a new line
  * Return: Always 0 (Success)
  */
-
 int main(void)
 {
-	long long int num = 612852475143;
-	long long int largestPrimeFactor = 0;
+	long int n;
+	long int max;
+	long int i;
 
-	while (num % 2 == 0)
+	n = 612852475143;
+	max = -1;
+
+	while (n % 2 == 0)
 	{
-		largestPrimeFactor = 2;
-		num = 2;
+		max = 2;
+		n /= 2;
 	}
 
-	for (long long int i = 3; i * i <= num; i += 2)
+	for (i = 3; i <= sqrt(n); i = i + 2)
 	{
-		while (num % i == 0)
+		while (n % i == 0)
 		{
-			largestPrimeFactor = i;
-			num /= i;
+			max = i;
+			n = n / i;
 		}
 	}
 
-	if (num > 2)
-	largestPrimeFactor = num;
-	printf("%lld\n", largestPrimeFactor);
+	if (n > 2)
+		max = n;
+
+	printf("%ld\n", max);
+
 	return (0);
 }
