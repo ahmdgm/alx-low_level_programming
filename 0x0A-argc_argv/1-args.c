@@ -6,7 +6,7 @@
 * @argv: array of pointer to char 
 */
 
-int main(int argc, cahr **argv __attribute__((unused)))
+int main(int argc, char **argv __attribute__((unused)))
 {
 	printf("%d\n",argc - 1);
 	return (0);
