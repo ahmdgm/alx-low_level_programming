@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "main.h"
-
+#include <stdlib.h>
 /**
 * main - main program
 * @argc: number of arguments ,
