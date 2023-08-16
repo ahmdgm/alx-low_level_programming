@@ -1,5 +1,6 @@
-#include "file.h"
 #include <stdlib.h>
+#include "file.h"
+
 /**
 * print_name - prints a name
 * @name: name to print
