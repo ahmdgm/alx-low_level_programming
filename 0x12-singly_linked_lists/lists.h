@@ -1,6 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 #include <stdio.h>
+#include <stdlib>
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
