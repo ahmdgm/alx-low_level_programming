@@ -11,7 +11,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 {
 	char *buff;
 	FILE *file;
-	ssize_t bytesRead;
 
 	if (filename == NULL)
 		return (0);
@@ -21,14 +20,14 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 
 
-	buff = (char *)malloc(sizeof(char) * letters);
+	buff = (char *)malloc(letters + 1);
 	if  (buff == NULL)
 	{
 		fclose(file);
 		return (0);
 	}
 
-	bytesRead = fread(buff, 1, letters, file);
+	ssize_t bytesRead = fread(buff, 1, letters, file);
 	if (bytesRead == -1)
 	{
 		fclose(file);
