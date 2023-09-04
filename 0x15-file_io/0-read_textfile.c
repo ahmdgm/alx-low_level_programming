@@ -1,51 +1,39 @@
 #include "main.h"
-/**
-* read_textfile - function that reads a text file and
-* prints it to the POSIX standard output.
-* @filename: pointer to char
-* @letters: number of letters it should read and print
-* Return: if a file fails return NULL
-**/
+#include <stdlib.h>
 
+/**
+ * read_textfile - Reads a text file and prints it to POSIX stdout.
+ * @filename: A pointer to the name of the file.
+ * @letters: The number of letters the
+ *           function should read and print.
+ *
+ * Return: If the function fails or filename is NULL - 0.
+ *         O/w - the actual number of bytes the function can read and print.
+ */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	char *buff;
-	FILE *file;
+	ssize_t o, r, w;
+	char *buffer;
 
 	if (filename == NULL)
 		return (0);
 
-	file = fopen(filename, "r");
-	if (file == NULL)
+	buffer = malloc(sizeof(char) * letters);
+	if (buffer == NULL)
 		return (0);
 
+	o = open(filename, O_RDONLY);
+	r = read(o, buffer, letters);
+	w = write(STDOUT_FILENO, buffer, r);
 
-	buff = (char *)malloc(letters + 1);
-	if  (buff == NULL)
+	if (o == -1 || r == -1 || w == -1 || w != r)
 	{
-		fclose(file);
+		free(buffer);
 		return (0);
 	}
 
-	ssize_t bytesRead = fread(buff, 1, letters, file);
-	if (bytesRead == -1)
-	{
-		fclose(file);
-		free(buff);
-		return (0);
-	}
+	free(buffer);
+	close(o);
 
-	buff[bytesRead] = '\0';
-	ssize_t bytesWritten = write(STDOUT_FILENO, buff, bytesRead);
-
-	if (bytesWritten == -1 || bytesWritten != bytesRead)
-	{
-		fclose(file);
-		free(buff);
-		return (0);
-	}
-	fclose(file);
-	free(buff);
-	return (bytesRead);
-
+	return (w);
 }
